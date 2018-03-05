@@ -72,10 +72,10 @@ class DB
 			$operator = $where[1];
 			$value = $where[2];
 			
-			if (in_array($operator, $operators) {
-				$sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
+			if (in_array($operator, $operators)) {
+				$sql = "{$action} FROM {$table} WHERE {$field} {$operator} ? ";
 				
-				if(!$this->query->($sql, array($value))->getError()){
+                                if(!$this->query($sql, array($value))->getError()){
 					return $this;
 				}
 			}
@@ -149,6 +149,7 @@ class DB
 			return true;
 		}
 		return false;
+        }
 	//Geters 
     public function getConnection()	
 	{

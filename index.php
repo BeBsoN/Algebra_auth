@@ -2,11 +2,11 @@
 
    require_once 'core/init.php';
    
-   $db = DB::getInstance()->get('id, name', 'users');  //'SELECT *', 'users', array('username','=','perozdero'));
+  // $db = DB::getInstance()->get('id, name', 'users');  //'SELECT *', 'users', array('username','=','perozdero'));
    
-   echo '<pre>';
-   var_dump($db);
-   die;
+  // echo '<pre>';
+  // var_dump($db);
+  // die;
    
    Helper::getHeader('Algebra Auth','main_header');
    
