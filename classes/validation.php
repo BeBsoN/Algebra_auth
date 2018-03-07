@@ -29,16 +29,52 @@ class Validation
 
                     $this->addError($item, "Field {$item} is required.");
                     }
-                    elseif (0) {
+                    elseif (!empty($value)) {
+                        
+                        switch ($rule){
+                            case 'min':                                
+                                if (strlen($value) < $rule_value) {
+                                $this->addError($item, "Field {$item} must have minimum of {$rule_value} characters.");
+                            }
+                            break;
+                            case 'max':
+                                if (strlen($value) > $rule_value) {
+                                $this->addError($item, "Field {$item} must have maximum of {$rule_value} characters.");
+                            }
+                            break;
+                            case 'matches':
+                                if ($value != Input::get($rule_value)) {
+                                $this->addError ($item, "Field must {$item} must match {$rule_value} field.");}
+                            case 'unique':{
+                                $check = $this->db->get('id',$rule_value, array($item, '=', $value));
+                                if ($check->getCount()) {
+                                    $this->addError($item, "{$item} already exists.");
+                                }
+                                break;
+                            }
+                        }
                     
                 }
             }
         }
+        if(empty($this->errors))
+            $this->passed = true;
         return $this;
     }
     
     private function addError($item, $error)
     {
         $this->errors[$item] = $error;
+    }
+    
+    public function getPassed() {
+        return $this->passed;
+    }
+    
+    public function hasError($field) {
+        if(isset($this->errors[$field]))
+            return $this->errors[$field];
+        return FALSE;
+        
     }
 }
