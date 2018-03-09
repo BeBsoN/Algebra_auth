@@ -35,5 +35,11 @@ class Session
    {
        unset($_SESSION[$key]);
    }
+   
+   public static function flash($key, $msg = '')
+   {
+       //kada je metoda static kako bi pozvali unutar metode pozivamo pomoću self
+       self::put($key, $msg);
+   }
 }
 

@@ -48,8 +48,23 @@
               $salt = Hash::salt(32);
               $password = Hash::make(Input::get('password'), $salt);
               //var_dump($salt);
+              try{
+                  $user->create(array(
+                      'username' => Input::get('username'),
+                      'password' => $password,
+                      'salt' => $salt,
+                      'name' => Input::get('name')
+                  ));
+              } catch (Exception $e) {
+                  Session::flash('danger', $e->getMessage());
+                  //redirekcija, napravit ćemo novu klasu, contructor
+                  Redirect::to('register');
+                  
+              }
+              Session::flash('success','You are registerd succesfully');
+              Redirect::to('login');
+              Redirect::to('404');
               
-              header('Location:login.php');
       }
      //echo 'nisu';
       
@@ -58,6 +73,7 @@
   }
  }
    
+ require_once 'notifications.php';
 ?>
 
 
@@ -110,10 +126,3 @@
     </div>
         
 </div>		
-<?php
-//svaki user se mora instancirati
-//instancirati bazu
-//klasa user
-//kako registrirati korisnika
-//na vrhu koda, napisati klasu Userm, i u toj klasi user
-?>

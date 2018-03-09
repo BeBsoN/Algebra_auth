@@ -91,7 +91,7 @@ class DB
 	
 	public function get($fields, $table, $where = array())
 	{
-		return $this->action("SELECT {$fileds}", $table, $where);
+		return $this->action("SELECT {$fields}", $table, $where);
 	}
 	
 	public function find($id, $table)
@@ -160,14 +160,19 @@ class DB
 	{
 		return $this -> error;
 	}	
-	public function getResults()
+    public function getResults()
 	{
 		return $this -> results;
 	}
-	public function getCount()
+    public function getCount()
 	{
 		return $this -> count;
 	}
+        
+    public function first()
+    {
+        return $this->results[0];
+    }
 	
 }
 	
